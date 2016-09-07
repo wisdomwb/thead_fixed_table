@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>Document</title>
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+        <style type="text/css">
+            .table-wrapper {
+                width: 500px;
+                height: 600px;
+                margin-top: 20px;
+            }
+            
+            .table-wrapper table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            
+            .table-wrapper table th,
+            .table-wrapper table td {
+                border: 1px solid #111;
+            }
+            
+            .table-wrapper table tr th:nth-child(0),
+            .table-wrapper table tr td:nth-child(0) {
+                width: 30%;
+            }
+            
+            .table-wrapper table tr th:nth-child(1),
+            .table-wrapper table tr td:nth-child(1) {
+                width: 40%;
+            }
+            
+            .table-wrapper table tr th:nth-child(2),
+            .table-wrapper table tr td:nth-child(2) {
+                width: 30%;
+            }
+            
+            .table-wrapper .table-body {
+                overflow-y: auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <div><button class="add">添加一行</button><button class="remove">删除一行</button></div>
+            <div class="table-wrapper">
+                <div class="table-head">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>head0</th>
+                                <th>head1</th>
+                                <th>head2</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="table-body">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>data</td>
+                                <td>data</td>
+                                <td>data</td>
+                            </tr>
+                            <tr>
+                                <td>data</td>
+                                <td>data</td>
+                                <td>data</td>
+                            </tr>
+                            <tr>
+                                <td>data</td>
+                                <td>data</td>
+                                <td>data</td>
+                            </tr>
+                            <tr>
+                                <td>data</td>
+                                <td>data</td>
+                                <td>data</td>
+                            </tr>
+                            <tr>
+                                <td>data</td>
+                                <td>data</td>
+                                <td>data</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var paddingRightFix = 0, //表头右侧padding
+                    visibleHeight = 190, //表格内容可见高度
+                    scrollHandle = function() {//表格滚动处理
+                        var contentHeight = $('.table-body tr').length * ($('.table-head').height() - 1);
+                        if(contentHeight > visibleHeight) { //表格内容超出可见高度则滚动
+                            paddingRightFix = 17; //padding值等于滚动条宽度
+                        } else {
+                            paddingRightFix = 0;
+                        }
+                        $('.table-head').css('padding-right', paddingRightFix);
+                    };
+                $('.table-body').css('height', visibleHeight);
+                scrollHandle(); //初始化
+                $('.add').on('click', function() { //添加一行
+                    $('.table-body table').append('<tr><td>data</td><td>data</td><td>data</td></tr>');
+                    scrollHandle();
+                });
+                $('.remove').on('click', function() { //删除一行
+                    $('.table-body table tr').last().remove();
+                    scrollHandle();
+                });
+            });
+        </script>
+    </body>
+
+</html>
